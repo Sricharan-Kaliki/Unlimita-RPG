@@ -6,7 +6,8 @@ This is my project proposal for a turn-based game I am making. It is a single pl
 
 **Start Screen**
 
-(![alt text](Screenshot_20240318_121058.png))
+![proposal flow chart](Screenshot_20240318_121058.png)
+
 My Goals
 
 - As a player I would like to know If I won the battle
