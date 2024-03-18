@@ -5,9 +5,9 @@
 This is my project proposal for a turn-based game I am making. It is a single player endless role-playing game in which you defeat enemies, steal their loot and level up to become infinitely stronger as you want to be. Each battle ends with you defeating the enemy or by being defeated. Defeating the enemy allows you to get power ups in the form of a choice while losing sends you back to the home screen where your highscore is displayed. You may choose to replay the game any time, but you will start at the beginning each time. I look forward to making this game and may update it with a save feature if required.
 
 **Start Screen**
-![proposal user start screen](startscreen.png)
-![proposal battle screen](battlscreen.png)
-![proposal flow chart](flowchart.png)
+![proposal user start screen](photos/startscreen.png)
+![proposal battle screen](photos/battlscreen.png)
+![proposal flow chart](photos/battlesScreen.png)
 
 
 My Goals
