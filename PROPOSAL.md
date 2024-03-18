@@ -6,8 +6,8 @@ This is my project proposal for a turn-based game I am making. It is a single pl
 
 **Start Screen**
 ![proposal user start screen](photos/startscreen.png)
-![proposal battle screen](photos/battlscreen.png)
-![proposal flow chart](photos/battlesScreen.png)
+![proposal battle screen](photos/battleScreen.png)
+![proposal flow chart](photos/flowchart.png)
 
 
 My Goals
