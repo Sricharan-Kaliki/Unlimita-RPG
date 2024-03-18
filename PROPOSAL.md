@@ -12,13 +12,14 @@ This is my project proposal for a turn-based game I am making. It is a single pl
 
 My Goals
 
-- As a player I would like to know If I won the battle
-- As a player I would like to know my characters remaining health
-- As a player I would like to know my enemies health
+- As a player I would like to have a start page from which i can start the game to entle the battle screen
+- As a player I would like to have a way to see the information of my player, the enemy and the characters 
+- As a player I would like to have a way to select and perform an attack
+- As a player I would like to have a way to know what attack my enemy used
 - As a player I would like to have a visual representation of health changing
-- As a player I would like to have an animation for an attack
-- As a player I would like to have a way to stop the game
-- As a player I would like to keep track of the highscore
+- As a player I would like to have a display of the character winning 
+- As a player I would like to have a way to stop the game and jump to the home screen
+
 
 Stretch Goals
 
@@ -26,13 +27,17 @@ Stretch Goals
 - As a stretch goal I would like to add different character sprites
 - As a stretch goal I would like to add animations
 - As a stretch goal I would like to add SFX
-
+- As a stretch goal I would like to make the game endless
+- As a stretch goal I would like to make the game have an enchancement screen
+- As a stretch goal I would like to keep track of the highscore
+- As a stretch goal I would like to make different sprites
+ 
 | **Day** | **Task** | **Blockers** | **Notes/ Thoughts** |
 | --- | --- | --- | --- |
-| Monday | Make proposal getting started |     |     |
-| Tuesday | Write out the html and create screens. |     |     |
-| Wednesday | Add basic css and functionality |     |     |
-| Thursday | Improve functionality |     |     |
-| Friday | Flesh out animations and design |     |     |
-| Saturday | Review code for multiple steps and bugs |     |     |
-| Sunday | Improve anything lacking. |     |     |
+| Monday | Define constants classes,functions and event listeners |     |     |
+| Tuesday | Improve functioning and get a running prototype |     |     |
+| Wednesday | work on adding css to the game and improve visibility|     |     |
+| Thursday | get feedback from instructors on necessary changes |     |     |
+| Friday | work on adding endless mode and highscore as well as enchancement screen |     |     |
+| Saturday | add sprites animations sfx and other stretch goals|     |     |
+| Sunday | review code get feedback and have others test it and make improvements/check for bugs|     |     |
