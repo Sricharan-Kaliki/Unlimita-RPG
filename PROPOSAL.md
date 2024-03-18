@@ -30,9 +30,9 @@ Stretch Goals
 | **Day** | **Task** | **Blockers** | **Notes/ Thoughts** |
 | --- | --- | --- | --- |
 | Monday | Make proposal getting started |     |     |
-| Tuesday | Write out the html<br><br>And create screens. |     |     |
+| Tuesday | Write out the html and create screens. |     |     |
 | Wednesday | Add basic css and functionality |     |     |
 | Thursday | Improve functionality |     |     |
 | Friday | Flesh out animations and design |     |     |
 | Saturday | Review code for multiple steps and bugs |     |     |
-| Sunday | Improve anything<br><br>Lacking. |     |     |
+| Sunday | Improve anything lacking. |     |     |
