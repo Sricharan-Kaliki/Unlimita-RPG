@@ -10,7 +10,7 @@
 //add a function to calculate the damage done by the enemy 
 //add a function to check for deathblows to enemies and call a function to render the enhancements screen
 //add a function to check for deathblows to the player and call a function to render the start screen also updating the highscore 
-// add a function to change equipment
+//add a function to change equipment
 //add a function to augment equipment stats on to player stats 
 /*rendered start menu must have 
 .Game title 
@@ -23,28 +23,43 @@
 //add an event listener to the each selection of the attack menu
 //add an event listener to see equipment stats on hover   
 //add an event listener to make equipment to choose between equipment or experience
-const startPage=document.getElementById('start-screen')
+const page=document.querySelector('body')
+const titleScreen=document.createElement('div')
+titleScreen.classList.add('title-screen')
 const gameTitle=document.createElement('p')
 gameTitle.classList.add('game-title')
 const input=document.createElement('input')
 input.type='text'
+input.classList.add('user-name')
 const highScore=document.createElement('p')
 const highScoreList=document.createElement('ul')
 highScore.appendChild(highScoreList)
 const startButton=document.createElement('button')
 startButton.type='button'
 startButton.innerHTML="Start Game"
-
-function onStart(){
-    startPage.appendChild(gameTitle)
-    gameTitle.innerHTML='Unlimita RPG'
-    startPage.appendChild(input) 
-    startPage.appendChild(highScore)
-    startPage.appendChild(startButton)
-}
+const textBox=document.createElement('p')
+textBox.classList.add('text-box')  
+const playerCharacter=document.createElement('div')
+const playerName=document.createElement('p')
+const playerHealthBar=document.createElement('p')
+const playerHealthRatio=document.createElement('p')
+const playerLevel=document.createElement('p')
+const enemyCharacter=document.createElement('div')
+const enemyName=document.createElement('p')
+const enemyHealthBar=document.createElement('p')
+const enemyHealthRatio=document.createElement('p')
+const enemyLevel=document.createElement('p')
+const attackBox=document.createElement('div')
+const attackList=document.createElement('ul')
+const attackOneName=document.createElement('li')
+const attackTwoName=document.createElement('li')
+const attackThreeName=document.createElement('li')
+const attackFourName=document.createElement('li')
+const battleInfobox=document.createElement('p')
+const attackListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
 
 class Player{
-    constructor(name,level,maxHealth,currentHealth,attack,speed,turn){
+    constructor(level,maxHealth,currentHealth,attack,speed,turn,name,){
         this.name=name
         this.level=level
         this.maxHealth=maxHealth
@@ -89,3 +104,117 @@ class armor{
         this.dmgReductionModifier=dmgReductionModifier
     }
 }
+class attack{
+    constructor(name,baseDmg,selfHealthInc,selfHealthdec,incAtk,incSpd){
+       this.name=name
+       this.baseDmg=baseDmg
+       this.selfHealthInc=selfHealthInc
+       this.selfHealthdec=selfHealthdec
+       this.incAtk=incAtk
+       this.incSpd=incSpd          
+    }   
+}
+
+const player1=new Player(1,20,20,10,10)
+
+function onStart(){
+    page.appendChild(titleScreen)
+    titleScreen.appendChild(gameTitle)
+    gameTitle.innerHTML='Unlimita RPG'
+    titleScreen.appendChild(input) 
+    titleScreen.appendChild(highScore)
+    titleScreen.appendChild(startButton)
+}
+function battleScreen(){
+    page.appendChild(playerCharacter)
+    playerCharacter.classList.add('player-character')
+    playerCharacter.appendChild(playerName)
+    playerName.classList.add('player-name')
+    playerCharacter.appendChild(playerHealthBar)
+    playerHealthBar.classList.add('player-health-bar')
+    playerCharacter.appendChild(playerHealthRatio)
+    playerHealthRatio.classList.add('player-health-ratio')
+    playerCharacter.appendChild(playerLevel)
+    playerLevel.classList.add('player-level')
+    page.appendChild(enemyCharacter)
+    enemyCharacter.appendChild(enemyName)
+    enemyLevel.classList.add('enemy-name')
+    enemyCharacter.appendChild(enemyHealthBar)
+    enemyLevel.classList.add('enemy-health-bar')
+    enemyCharacter.appendChild(enemyHealthRatio)
+    enemyLevel.classList.add('enemy-health-ratio')
+    enemyCharacter.appendChild(enemyLevel)
+    enemyLevel.classList.add('enemy-level')
+    page.appendChild(attackBox)
+    attackBox.appendChild(attackList)
+    page.appendChild(battleInfobox)
+}
+const fireball= new attack('fireball',3)
+const heal=new attack('heal',0,5)
+player1.attacks=[fireball,heal]
+function damageToEnemyCalc(attack,damage){
+      let damageDealt=Math.floor(attack/10*damage);
+      enemy1.currentHealth= enemy1.currentHealth-damageDealt;
+      createEnemy()
+}    
+function damageToPlayerCalc(attack,damage){
+    let damageDealt=Math.floor(attack/10*damage);
+    player1.currentHealth= player1.currentHealth-damageDealt;
+    createPlayer()
+}    
+function speedCheck(){
+    if(player1.speed>enemy1.speed){
+    for(i=0;i<4;i++){
+        if(player1.attacks[i]){
+            attackListArray[i].innerHTML=player1.attacks[i].name
+            attackList.appendChild(attackListArray[i])
+            attackListArray[i].addEventListener('click',function(){
+                damageToEnemyCalc(10,5) 
+                attackList.remove()
+                damageToPlayerCalc(10,3)
+                //add a function here to calculate the damage after each attack is done
+            })
+        }
+     }
+    }
+    else
+    {
+        damageToPlayerCalc(10,3)
+        for(i=0;i<4;i++){
+            if(player1.attacks[i]){
+                attackListArray[i].innerHTML=player1.attacks[i].name
+                attackList.appendChild(attackListArray[i])
+                attackListArray[i].addEventListener('click',function(){ 
+                    attackList.remove()
+                    damageToEnemyCalc(10,5)
+                    //add a function here to calculate the damage after each attack is done
+                })
+            }
+         }
+    }
+}
+function getUserName(){
+    player1.playerName = document.querySelector('#user-name').innerHTML
+}
+function createPlayer(){  
+   playerHealthBar.innerHTML=''
+   playerHealthRatio.innerHTML=`HP:${player1.currentHealth}/${player1.maxHealth}`
+   playerLevel.innerHTML=`lvl:${player1.level}`
+}
+const enemy1= new enemy('slime',1,13,13,5,5)
+const bite= new attack('bite',2)
+enemy1.attacks=[bite]
+function createEnemy(){  
+    enemyHealthBar.innerHTML=''
+    enemyHealthRatio.innerHTML=`HP:${enemy1.currentHealth}/${enemy1.maxHealth}`
+    enemyLevel.innerHTML=`lvl:${enemy1.level}`
+ }
+
+ startButton.addEventListener('click',function(){
+    titleScreen.remove()
+    battleScreen()
+    createPlayer()
+    createEnemy()
+    speedCheck()
+ })
+
