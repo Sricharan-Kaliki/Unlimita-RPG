@@ -1,4 +1,4 @@
-//Define constants to get the elements of start page in javascript add classes to the elements
+   //Define constants to get the elements of start page in javascript add classes to the elements
 //Define constants to get the elements of the battle screen in javascript
 //Define constants to get the elements of the enhancement screen
 //Add classes to each elements in the start page using javascript
@@ -51,11 +51,12 @@ const enemyHealthRatio=document.createElement('p')
 const enemyLevel=document.createElement('p')
 const attackBox=document.createElement('div')
 const attackList=document.createElement('ul')
+attackList.classList.add('attack-list')
 const attackOneName=document.createElement('li')
 const attackTwoName=document.createElement('li')
 const attackThreeName=document.createElement('li')
 const attackFourName=document.createElement('li')
-const battleInfobox=document.createElement('p')
+const battleInfoBox=document.createElement('p')
 const attackListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
 
 class Player{
@@ -147,7 +148,7 @@ function battleScreen(){
     enemyLevel.classList.add('enemy-level')
     page.appendChild(attackBox)
     attackBox.appendChild(attackList)
-    page.appendChild(battleInfobox)
+    page.appendChild(battleInfoBox)
 }
 const fireball= new attack('fireball',3)
 const heal=new attack('heal',0,5)
@@ -156,43 +157,39 @@ function damageToEnemyCalc(attack,damage){
       let damageDealt=Math.floor(attack/10*damage);
       enemy1.currentHealth= enemy1.currentHealth-damageDealt;
       createEnemy()
+      return damageDealt
 }    
 function damageToPlayerCalc(attack,damage){
     let damageDealt=Math.floor(attack/10*damage);
     player1.currentHealth= player1.currentHealth-damageDealt;
     createPlayer()
-}    
-function speedCheck(){
-    if(player1.speed>enemy1.speed){
-    for(i=0;i<4;i++){
-        if(player1.attacks[i]){
-            attackListArray[i].innerHTML=player1.attacks[i].name
-            attackList.appendChild(attackListArray[i])
-            attackListArray[i].addEventListener('click',function(){
-                damageToEnemyCalc(10,5) 
-                attackList.remove()
-                damageToPlayerCalc(10,3)
-                //add a function here to calculate the damage after each attack is done
-            })
-        }
-     }
+    return damageDealt
+}   
+function performAttack(){
+    player1.turn=player1.speed>enemy1.speed
+    if(player1.turn){
+       let dmgToEnemy
+       dmgToEnemy=damageToEnemyCalc(player1.attack,5)
+       attackList.classList.add('hide-attack-list')
+       let dmgToPlayer
+       dmgToPlayer=damageToPlayerCalc(enemy1.attack,3)
+       battleInfoBox.innerHTML=`you did ${dmgToEnemy} damage and the enemy did ${dmgToPlayer} damage to you`
     }
     else
     {
-        damageToPlayerCalc(10,3)
-        for(i=0;i<4;i++){
-            if(player1.attacks[i]){
-                attackListArray[i].innerHTML=player1.attacks[i].name
-                attackList.appendChild(attackListArray[i])
-                attackListArray[i].addEventListener('click',function(){ 
-                    attackList.remove()
-                    damageToEnemyCalc(10,5)
-                    //add a function here to calculate the damage after each attack is done
-                })
-            }
-         }
+      let dmgToPlayer
+      dmgToPlayer=damageToPlayerCalc(enemy1.attack,3)
+      let dmgToEnemy
+      dmgToEnemy=damageToEnemyCalc(player1.attack,5)
+      attackList.classList.add('hide-attack-list')
+      battleInfoBox.innerHTML=`the enemy did ${dmgToPlayer} damage and you did ${dmgToEnemy} damage to the enemy`
     }
+    battleInfoBox.addEventListener('click',function(){
+        attackList.classList.remove('hide-attack-list')
+        battleInfoBox.innerHTML=''
+    })
 }
+
 function getUserName(){
     player1.playerName = document.querySelector('#user-name').innerHTML
 }
@@ -200,6 +197,17 @@ function createPlayer(){
    playerHealthBar.innerHTML=''
    playerHealthRatio.innerHTML=`HP:${player1.currentHealth}/${player1.maxHealth}`
    playerLevel.innerHTML=`lvl:${player1.level}`
+}
+function makeAttackList(){
+    for(i=0;i<4;i++){
+        if(player1.attacks[i]){
+            attackListArray[i].innerHTML=player1.attacks[i].name
+            attackList.appendChild(attackListArray[i])
+            attackListArray[i].addEventListener('click',function(){
+                performAttack()
+            })
+        }
+     }
 }
 const enemy1= new enemy('slime',1,13,13,5,5)
 const bite= new attack('bite',2)
@@ -215,6 +223,6 @@ function createEnemy(){
     battleScreen()
     createPlayer()
     createEnemy()
-    speedCheck()
+    makeAttackList()
  })
 
