@@ -12,7 +12,7 @@ This is my project proposal for a turn-based game I am making. It is a single pl
 
 My Goals
 
-- As a player I would like to have a start page from which i can start the game to entle the battle screen
+- As a player I would like to have a start page from which i can start the game to enter the battle screen
 - As a player I would like to have a way to see the information of my player, the enemy and the characters 
 - As a player I would like to have a way to select and perform an attack
 - As a player I would like to have a way to know what attack my enemy used
