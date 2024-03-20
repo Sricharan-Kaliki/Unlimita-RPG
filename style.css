@@ -60,10 +60,24 @@ display: flex;
 flex-direction: column; 
 color: white;
 background-color:#5A44D3; 
+margin: 10px
 }
 .enemy-container{
  display:flex;
  flex-direction: column; 
  background-color:#5A44D3;
  color: white;
+ margin:10px
+}
+.attack-list{
+    color: white;
+    background-color:#5A44D3; 
+    margin: 10px
+
+}
+.display-battle-info{
+    color: white;
+    background-color:#5A44D3; 
+    margin: 10px
+
 }

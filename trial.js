@@ -26,7 +26,6 @@
 
 // 1. Declare the start page elements
 
-
 const page=document.querySelector('body')
 const titleScreen=document.createElement('div')
 titleScreen.classList.add('title-screen')
@@ -85,7 +84,7 @@ const attackThreeName=document.createElement('li')
 const attackFourName=document.createElement('li')
 const battleInfoBox=document.createElement('p')
 battleInfoBox.classList.add('display-battle-info')
-const attackListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
+const attackListArray=[fireball,heal,agility,reckless]
 
 
 // 3. declare the necessary classes
@@ -138,11 +137,11 @@ class armor{
     }
 }
 class attack{
-    constructor(name,baseDmg,selfHealthInc,selfHealthdec,incAtk,incSpd){
+    constructor(name,baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
        this.name=name
        this.baseDmg=baseDmg
        this.selfHealthInc=selfHealthInc
-       this.selfHealthdec=selfHealthdec
+       this.selfHealthDec=selfHealthDec
        this.incAtk=incAtk
        this.incSpd=incSpd          
     }   
@@ -224,40 +223,41 @@ function speedCheck(){
 
     return player1.turn
 }
-function performAttack(){  
+function performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){  
     if(speedCheck()){
-       let dmgToEnemy
-       dmgToEnemy=damageToEnemyCalc(player1.attack,5)
-       battleInfoBox.innerHTML=`you did ${dmgToEnemy} to the enemy`
-       attackList.classList.add('hide-attack-list')
-       battleInfoBox.addEventListener('click',function(){
-        let dmgToPlayer
-        dmgToPlayer=damageToPlayerCalc(enemy1.attack,3)
-        battleInfoBox.innerHTML=`The enemy did ${dmgToPlayer} damage to you`
-        attackList.classList.remove('hide-attack-list')
-       })
+      if(baseDmg!==0){
+        damageToEnemyCalc(player1.attack,baseDmg)
+      } 
+      if(selfHealthInc!==0){
+        IncreasePlayerHealth(player1.currentHealth,selfHealthInc)
+      }
+      if(selfHealthDec!==0){
+        DecreaseToPlayerHealth(player1.currentHealth,selfHealthDec)
+      }
+      if(incAtk!==0){
+        IncreasePlayerAttack(player1.atk,incAtk)
+      }
+      if(incSpd!==0){
+        IncreasePlayerSpeed(player1.spd,incSpd)
+      }
     }
     else{
-       let dmgToPlayer
-       dmgToPlayer=damageToPlayerCalc(enemy1.attack,3)
-       battleInfoBox.innerHTML=`The enemy did ${dmgToPlayer} damage to you              click on this box to continue`
-       attackList.classList.remove('hide-attack-list')
-       battleInfoBox.addEventListener('click',function(){
-            let dmgToPlayer
-            dmgToPlayer=damageToPlayerCalc(enemy1.attack,3)
-            attackList.classList.add('hide-attack-list')
-            battleInfoBox.innerHTML=`The enemy did ${dmgToPlayer} damage to you         click on this box to continue`
-           })     
+        if(baseDmg!==0){
+            damageToPlayerCalc(enemy1.attack,baseDmg)
+          } 
+          if(selfHealthInc!==0){
+            IncreaseEnemeyHealth(enemy1.currentHealth,selfHealthInc)
+          }
+          if(selfHealthDec!==0){
+            DecreaseEnemyHealth(enemy1.currentHealth,selfHealthDec)
+          }
+          if(incAtk!==0){
+            IncreaseEnemyAttack(enemy1.atk,incAtk)
+          }
+          if(incSpd!==0){
+            IncreaseEnemySpeed(enemy1.spd,incSpd)
+          }
        }
-       if (player1.currentHealth<0){
-        battleInfoBox.innerHTML='you lost'
-        player1.currentHealth=0
-    }
-        if (enemy1.currentHealth<0){
-        battleInfoBox.innerHTML='you won'
-        enemy1.currentHealth=0
-        
-    }
     }
 
 function getUserName(){
@@ -276,7 +276,12 @@ function makeAttackList(){
             attackListArray[i].innerHTML=player1.attacks[i].name
             attackList.appendChild(attackListArray[i])
             attackListArray[i].addEventListener('click',function(){
-                performAttack()
+                let baseDmg=attackListArray[i].baseDmg
+                let selfHealthInc=attackListArray[i].selfHealthInc
+                let selfHealthDec= attackListArray[i].selfHealthDec
+                let incAtk= attackListArray[i].incAtk
+                let incSpd= attackListArray[i].incSpd
+                performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
             })
         }
      }
