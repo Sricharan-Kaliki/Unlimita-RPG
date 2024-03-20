@@ -23,6 +23,10 @@
 //add an event listener to the each selection of the attack menu
 //add an event listener to see equipment stats on hover   
 //add an event listener to make equipment to choose between equipment or experience
+
+// 1. Declare the start page elements
+
+
 const page=document.querySelector('body')
 const titleScreen=document.createElement('div')
 titleScreen.classList.add('title-screen')
@@ -43,17 +47,34 @@ const startButton=document.createElement('button')
 startButton.type='button'
 startButton.innerHTML="Start Game"
 const textBox=document.createElement('p')
-textBox.classList.add('text-box')  
+textBox.classList.add('text-box')
+
+// 2.Declare the battle page elements
+
+//player elements
+const playerContainer=document.querySelector('.player-container')  
 const playerCharacter=document.createElement('div')
 const playerName=document.createElement('p')
+playerName.classList.add('player-name')
 const playerHealthBar=document.createElement('p')
+playerHealthBar.classList.add('player-health-bar')
 const playerHealthRatio=document.createElement('p')
+playerHealthRatio.classList.add('player-health-ratio')
 const playerLevel=document.createElement('p')
-const enemyCharacter=document.createElement('div')
+playerLevel.classList.add('player-level')
+
+//enemy elements
+const enemyContainer=document.querySelector('.enemy-container')
 const enemyName=document.createElement('p')
+enemyName.classList.add('enemy-name')
 const enemyHealthBar=document.createElement('p')
+enemyHealthBar.classList.add('enemy-health-bar')
 const enemyHealthRatio=document.createElement('p')
+enemyHealthRatio.classList.add('enemy-health-ratio')
 const enemyLevel=document.createElement('p')
+enemyLevel.classList.add('enemy-level')
+
+//page elements
 const attackBox=document.createElement('div')
 const attackList=document.createElement('ul')
 attackList.classList.add('attack-list')
@@ -63,6 +84,10 @@ const attackThreeName=document.createElement('li')
 const attackFourName=document.createElement('li')
 const battleInfoBox=document.createElement('p')
 const attackListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
+
+
+// 3. declare the necessary classes
+
 
 class Player{
     constructor(level,maxHealth,currentHealth,attack,speed,turn,name){
@@ -121,7 +146,11 @@ class attack{
     }   
 }
 
+// 4. make a new player from the class
+
 const player1=new Player(1,20,20,10,10)
+
+// 5. function for the start page
 
 function onStart(){
     page.appendChild(titleScreen)
@@ -130,28 +159,24 @@ function onStart(){
     titleScreen.appendChild(highScore)
     titleScreen.appendChild(startButton)
     titleScreen.appendChild(userNamePrompt)
-    titleScreen.appendChild(userName) 
 }
+
+// 6.function for the battle page 
+
 function battleScreen(){
-    page.appendChild(playerCharacter)
-    playerCharacter.classList.add('player-character')
-    playerCharacter.appendChild(playerName)
-    playerName.classList.add('player-name')
-    playerCharacter.appendChild(playerHealthBar)
-    playerHealthBar.classList.add('player-health-bar')
-    playerCharacter.appendChild(playerHealthRatio)
-    playerHealthRatio.classList.add('player-health-ratio')
-    playerCharacter.appendChild(playerLevel)
-    playerLevel.classList.add('player-level')
-    page.appendChild(enemyCharacter)
-    enemyCharacter.appendChild(enemyName)
-    enemyLevel.classList.add('enemy-name')
-    enemyCharacter.appendChild(enemyHealthBar)
-    enemyLevel.classList.add('enemy-health-bar')
-    enemyCharacter.appendChild(enemyHealthRatio)
-    enemyLevel.classList.add('enemy-health-ratio')
-    enemyCharacter.appendChild(enemyLevel)
-    enemyLevel.classList.add('enemy-level')
+    page.appendChild(playerContainer)
+    playerContainer.classList.add('player-character')
+    playerContainer.appendChild(playerName)
+    playerContainer.appendChild(playerHealthBar)
+    playerContainer.appendChild(playerHealthRatio)
+    playerContainer.appendChild(playerLevel)
+
+    page.appendChild(enemyContainer)
+    enemyContainer.appendChild(enemyName)
+    enemyContainer.appendChild(enemyHealthBar)
+    enemyContainer.appendChild(enemyHealthRatio)
+    enemyContainer.appendChild(enemyLevel)
+
     page.appendChild(attackBox)
     attackBox.appendChild(attackList)
     page.appendChild(battleInfoBox)
@@ -161,9 +186,10 @@ userNamePrompt.addEventListener('click',function(){
    titleScreen.appendChild(input)
 })
  
-input.addEventListener('keydown',function(event){
+input.addEventListener('keydown',function(event){ 
     if(event.key==='Enter')
     {
+    titleScreen.appendChild(userName)
     userName.innerHTML="welcome "+getUserName() +"! press start game to join battle"
     this.remove()
     }

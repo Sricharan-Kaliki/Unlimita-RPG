@@ -15,7 +15,55 @@ body{
 .game-title{
     font-family:"Wallpoet",sans-serif ;
     font-size: 100px;
-}
-.username{
+    height: 100px;
+    width: 800px;
+    background-color: #5A44D3;
     
+}
+button{
+    height: 50px;
+    width: 150px; 
+    background-color: #5A44D3;
+    color: #FFFFFF;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+}
+.userNamePrompt{
+    height: 30px;
+    width: 250px;
+    padding: 5px 10px; 
+    border-radius: 5px;
+    border: 1px solid #FFFFFF; 
+    font-size: 18px;
+    color:#FFFFFF;
+    background-color:#5A44D3 ;
+    text-align: center;
+    cursor: pointer;
+}
+.user-name-input{
+     
+}
+.user-name{
+    color:white;
+    background:#5A44D3;
+    border:1px solid white;
+    border-radius: 5px;
+    height: 30px;
+    width: 400px;
+    text-align: center;
+    font-size: 18px;
+}
+.player-container{
+display: flex;
+flex-direction: column; 
+color: white;
+background-color:#5A44D3; 
+}
+.enemy-container{
+ display:flex;
+ flex-direction: column; 
+ background-color:#5A44D3;
+ color: white;
 }
