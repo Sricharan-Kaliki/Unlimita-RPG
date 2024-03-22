@@ -1,11 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 body{
     background-image:url("https://pbs.twimg.com/media/GHmHx-bWgAAmMgB.png:large"); 
     background-size: cover;
 }
-.hide-attack-list{
-    display: none;
-}
-
 .title-screen{
     display: flex;
     flex-direction: column;  
@@ -18,8 +15,8 @@ body{
     height: 100px;
     width: 800px;
     background-color: #5A44D3;
-    
 }
+
 button{
     height: 50px;
     width: 150px; 
@@ -43,7 +40,9 @@ button{
     cursor: pointer;
 }
 .user-name-input{
-     
+    height: 30px ;
+    width: 200px; 
+    margin-top: 10px 
 }
 .user-name{
     color:white;
@@ -53,31 +52,240 @@ button{
     height: 30px;
     width: 400px;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
 }
-.player-container{
-display: flex;
-flex-direction: column; 
-color: white;
-background-color:#5A44D3; 
-margin: 10px
+.battle-screen{
+        margin: 0;
+        display: grid; 
+        height:100vh;
+        width: 100vw;
+        grid-template-columns: repeat(20, 1fr); 
+        grid-template-rows: repeat(20, 1fr); 
+        gap: 0px 0px; 
+        background-color: white;
+        background: url('https://64.media.tumblr.com/00ec803404f6e9d6583f92d8870b5fb8/tumblr_p7k8f3fMWS1wvbydeo1_1280.png');
+        background-size: cover;
+        text-align: center;
+    }
+    
+    .enemy-info{
+        grid-column: 15/span 3;
+        grid-row:10/span 2;
+        border: 1px solid black;
+        background-color:rgb(230, 212, 156);
+        border-radius: 5px;
+
+    }
+    .enemy-name{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        grid-column:15/span 2;
+        grid-row:8/ span 2;
+        background-color: #089de7;
+        color: #FFFFFF;
+        border: 1px solid black;
+        font-size: 18px;
+        height: 30px;
+    }
+    .enemy-level{
+        grid-column: 17/ span 1;
+        grid-row:10/ span 1;
+    }
+    .enemy-health-bar{
+        grid-column:1/4;
+        grid-row:2;
+    }
+    .enemy-health-ratio{
+        grid-column: 15/span 1;
+        grid-row:10/span 1;
+    }
+    .enemy-character{
+    
+        grid-column: 13/span 4;
+        grid-row:9/ span 4;
+    }
+    .player-info{
+        
+        grid-column:6/span 3  ;
+        grid-row: 13/span 2 ;
+        background-color: rgb(230, 212, 156);
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .player-name{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        grid-column:7/span 2;
+        grid-row:11/span 2;
+        background-color: #089de7;
+        color: white;
+        border: 1px solid black;
+        font-size: 18px;
+        height: 30px; 
+    }
+    .player-level{
+        grid-column: 8/span 1;
+        grid-row:13/span 1;
+        font-family: "Goudy Text MT", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    }
+    .player-health-bar{
+        grid-column:1/4;
+        grid-row:6;
+    }
+    .player-health-ratio{
+        grid-column: 6/span 1;
+        grid-row:13/span 1;
+    }
+    .attack-list{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        grid-column: 6/span 3;
+        grid-row:15/span 4;
+        background-color: #FFA500;
+        border:1px solid black;
+        font-size: 18px;
+        height: 60px;
+        width: 150px;
+        text-align: left;
+    }
+    
+    .player-character{
+        grid-column: 10/span 4;
+        grid-row:13/span 4;
+
+    }
+    .battle-info-box{
+        grid-column: 6/17;
+        grid-row: 19/span 2;
+        background-color: rgb(247, 190, 121);
+        border: 1px solid black;
+        height: 100px;
+        font-size: 25px;
+        font-family: 'Press Start 2P', sans-serif; ;
+    }
+    
+    .slime {
+        width: 100px;
+        height: 100px;
+        background-color: #089de7; 
+        border-radius: 50%; /* Makes the element round */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .slime:before {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #80baf0; /* Light green color */
+        border-radius: 50%;
+        top: -10px;
+        left: 50px;
+        animation: slime-wave 2s infinite alternate; /* Animation for wave effect */
+    }
+    
+    
+    .left {
+        position: relative;
+        top: 30px;
+        left: 20px;
+        width: 9px;
+        height: 9px;
+        background-color: black;
+        border-radius: 50%;
+    }
+    
+    .right {
+        position: relative;
+        top: 30px;
+        left: 50px;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        border-radius: 50%;
+    }
+    
+    .slime .mouth {
+        position: relative;
+        top: 70px;
+        left: 25px;
+        width: 25px;
+        height: 5px;
+        background-color: black;
+        border-radius: 0 0 50% 50%;
+        transform: rotate(15deg) ;
+    }
+    
+    /* Animation for wave effect */
+    @keyframes slime-wave {
+        0% {
+            transform: translateX(-2px) rotate(0deg);
+        }
+        100% {
+            transform: translateX(2px) rotate(10deg);
+        }
+    }
+    /* Base player container */
+.player-sprite{
+    width: 100px;
+    height: 160px;
 }
-.enemy-container{
- display:flex;
- flex-direction: column; 
- background-color:#5A44D3;
- color: white;
- margin:10px
+
+/* Player body */
+.player-body {
+    width: 50px;
+    height: 60px;
+    margin-top: -60px;
+    margin-left: 5px;
+    background-color: #FFA500; /* Orange color */
+    border-radius: 40%; /* Makes the element round */
 }
-.attack-list{
-    color: white;
-    background-color:#5A44D3; 
-    margin: 10px
+
+/* Player head */
+ .player-face {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    background-color: #FFA500; /* Orange color */
+    border-radius: 50%; /* Makes the element round */
+    top: 0;
+    left: 10px;
+}
+
+/* Player arms */
+
+.players-left-arm {
+    background-color: #FFA500;
+    width: 15px;
+    height: 30px;
+    margin-left: -50px;
+    transform: rotate(-45deg) translate(50px);
 
 }
-.display-battle-info{
-    color: white;
-    background-color:#5A44D3; 
-    margin: 10px
+.players-right-arm { 
+    background-color: #FFA500;
+    width: 15px;
+    height: 30px;
+    margin-left: 70px;
+    transform: rotate(45deg) translate(-20px);
+}
 
+.players-right-leg {
+    width: 15px;
+    height: 30px;
+    background-color: #FFA500;
+    transform: rotate(45deg) translate(-20px);
+    margin-left: 5px;
+}
+.players-left-leg{
+    width: 15px;
+    height: 30px;
+    background-color: #FFA500;
+    transform: rotate(-45deg) translate(20px);
+    margin-top: -29px;
+    margin-left: 38px;
+}
+.hide-attack-list{
+    display: none;
 }
