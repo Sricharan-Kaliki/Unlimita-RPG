@@ -91,11 +91,12 @@ const battleInfoBox=document.createElement('p')
 battleInfoBox.classList.add('battle-info-box')
 const attacksListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
 
+let count = 1;
 // 3. declare the necessary classes
 
 
 class Player{
-    constructor(level,maxHealth,currentHealth,attack,speed,turn,name){
+    constructor(level,maxHealth,currentHealth,attack,speed,turn,name,attacks){
         this.name=name
         this.level=level
         this.maxHealth=maxHealth
@@ -103,11 +104,12 @@ class Player{
         this.attack=attack
         this.speed=speed
         this.turn=turn
+        this.attacks=attacks
     }
 }
 
 class enemy{
-    constructor(name,level,maxHealth,currentHealth,attack,speed,turn,species){
+    constructor(name,level,maxHealth,currentHealth,attack,speed,turn,species,attacks){
         this.name=name
         this.level=level
         this.maxHealth=maxHealth
@@ -116,6 +118,7 @@ class enemy{
         this.speed=speed
         this.turn=turn
         this.species=species
+        this.attacks=attacks
     }
 }
 
@@ -264,64 +267,80 @@ const attacksArray=[fireball,heal,agility,reckless]
 function damageToEnemyCalc(attack,damage){
     let damageDealt=Math.floor(attack/10*damage);
     enemy1.currentHealth= enemy1.currentHealth-damageDealt
-    console.log(enemy1.currentHealth)
-    console.log(damageDealt)
+    if(enemy1.currentHealth<0)
+    {
+        enemy1.currentHealth = 0
+        createEnemy()
+        attackList.classList.add('hide-attack-list')
+        battleInfoBox.innerHTML=`${player1.name} has defeated the ${enemy1.name}`
+        return damageDealt
+    }
     createEnemy()
     battleInfoBox.innerHTML=`${player1.name} did ${damageDealt} damage to the ${enemy1.name}`
-    return damageDealt
 }    
 function damageToPlayerCalc(attack,damage){
     let damageDealt=Math.floor(attack/10*damage)
     player1.currentHealth= player1.currentHealth-damageDealt
+    if(player1.currentHealth<0)
+    {
+        player1.currentHealth = 0
+        createPlayer()
+        attackList.classList.add('hide-attack-list')
+        battleInfoBox.innerHTML=`${player1.name} has defeated the ${enemy1.name}`
+        return damageDealt
+    }
     createPlayer()
     battleInfoBox.innerHTML=`${enemy1.name} did ${damageDealt} damage to ${player1.name}`
-    return damageDealt
 }   
-function increasePlayerHealth(currentHealth,selfHealthInc){
-    currentHealth=currentHealth+selfHealthInc
-    if(currentHealth<maxHealth)
-    player1.currentHealth=currentHealth
-    else
-    player1.currentHealth=maxHealth
+function increasePlayerHealth(selfHealthInc){
+    player1.currentHealth=player1.currentHealth+selfHealthInc
+    if(player1.currentHealth>player1.maxHealth)
+    player1.currentHealth=player1.maxHealth
     createPlayer()
     battleInfoBox.innerHTML=`${player1.name} healed themselves by ${selfHealthInc} points`
 }
-function decreasePlayerHealth(currentHealth,selfHealthDec){
-    player1.currentHealth=currentHealth+selfHealthDec
+function decreasePlayerHealth(selfHealthDec){
+    player1.currentHealth=player1.currentHealth-selfHealthDec
+    if(player1.currentHealth<0)
+    {
+        player1.currentHealth = 0
+        createPlayer()
+        attackList.classList.add('hide-attack-list')
+        battleInfoBox.innerHTML=`${player1.name} has killed themselves`
+        return player1.currentHealth
+    }
     createPlayer()
     battleInfoBox.innerHTML=`${player1.name} hurt themselves, took ${selfHealthDec} damage`
 }
-function  increasePlayerAttack(atk,incAtk){
-    player1.attack=atk+incAtk
+function  increasePlayerAttack(incAtk){
+    player1.attack=player1.attack+incAtk
     createPlayer()
     battleInfoBox.innerHTML=`${player1.name}  raised their by attack ${incAtk}`  
 }
-function  increasePlayerSpeed(spd,incSpd){
-    player1.speed=spd+incSpd
+function  increasePlayerSpeed(incSpd){
+    player1.speed=player1.speed+incSpd
     createPlayer()
     battleInfoBox.innerHTML=`${player1.name}'s speed increased by ${incSpd}`  
 }
-function increaseEnemeyHealth(currentHealth,healthInc){
-    currentHealth=currentHealth+healthInc
-    if(currentHealth<enemy1.maxHealth)
-    enemy1.currentHealth=currentHealth
-    else
+function increaseEnemeyHealth(healthInc){
+    enemy1.currentHealth=enemy1.currentHealth+healthInc
+    if(enemy1.currentHealth>enemy1.maxHealth)
     enemy1.currentHealth=enemy1.maxHealth
     createEnemy()
     battleInfoBox.innerHTML=`${enemy1.name}'s health recovered by ${healthInc}`
 }
-function decreaseEnemyHealth(currentHealth,selfHealthDec){
-    enemy1.currentHealth=currentHealth+selfHealthDec
+function decreaseEnemyHealth(selfHealthDec){
+    enemy1.currentHealth=enemy1.currentHealth-selfHealthDec
     createPlayer()
     battleInfoBox.innerHTML=`${enemy1.name} hurt themselves, took ${selfHealthDec} damage`
 }
-function  increaseEnemyAttack(atk,incAtk){
-    enemy1.attack=atk+incAtk
+function  increaseEnemyAttack(incAtk){
+    enemy1.attack=enemy1.atk+incAtk
     createPlayer()
     battleInfoBox.innerHTML=`${enemy1.name}  raised their attack by ${incAtk}`  
 }
-function  increaseEnemySpeed(spd,incSpd){
-    enemy1.speed=spd+incSpd
+function  increaseEnemySpeed(incSpd){
+    enemy1.speed=enemy1.spd+incSpd
     createPlayer()
     battleInfoBox.innerHTML=`${enemy1.name}'s speed increased by ${incSpd}`
 }
@@ -330,65 +349,73 @@ function nextTurn(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
     performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
     attackList.classList.remove('hide-attack-list')
     console.log('next turn')
+    battleInfoBox.removeEventListener('click',referenceNextTurn)
 }
-
+const referenceNextTurn=function(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
+         nextTurn(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
+}
 function speedCheck(){
     if(player1.speed>enemy1.speed)
     {
         player1.turn=true
-        console.log(player1.turn)
     }
     else
        { 
         player1.turn=false
-        console.log(player1.turn)
     }
-    //attackList.classList.add('hide-attack-list')
+    attackList.classList.add('hide-attack-list')
 }
-function performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){  
-    if(player1.turn==true){
-      if(baseDmg!==0){
+
+function playerActions(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
+    if(baseDmg!==0){
         damageToEnemyCalc(player1.attack,baseDmg)
       }  
       if(selfHealthInc!==0){
-        increasePlayerHealth(player1.currentHealth,selfHealthInc)
+        increasePlayerHealth(selfHealthInc)
       }
       if(selfHealthDec!==0){
-        decreasePlayerHealth(player1.currentHealth,selfHealthDec)
+        decreasePlayerHealth(selfHealthDec)
       }
       if(incAtk!==0){
-        increasePlayerAttack(player1.atk,incAtk)
+        increasePlayerAttack(incAtk)
       }
       if(incSpd!==0){
-        increasePlayerSpeed(player1.spd,incSpd)
+        increasePlayerSpeed(incSpd)
       }
-      console.log(player1.turn)
+}
+
+function enemyActions(){
+    let enemyChoice=Math.floor(Math.random()*enemy1.attacks.length)
+    let baseDmg=enemy1.attacks[enemyChoice].baseDmg
+    let selfHealthInc=enemy1.attacks[enemyChoice].selfHealthInc
+    let selfHealthDec=enemy1.attacks[enemyChoice].selfHealthDec
+    let incAtk=enemy1.attacks[enemyChoice].incAtk
+    let incSpd=enemy1.attacks[enemyChoice].incSpd
+    if(baseDmg!==0){
+        damageToPlayerCalc(enemy1.attack,baseDmg)
+      } 
+      if(selfHealthInc!==0){
+        increaseEnemeyHealth(selfHealthInc)
+      }
+      if(selfHealthDec!==0){
+        decreaseEnemyHealth(selfHealthDec)
+      }
+      if(incAtk!==0){
+        increaseEnemyAttack(incAtk)
+      }
+      if(incSpd!==0){
+        increaseEnemySpeed(incSpd)
+      }
+}
+
+function performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){  
+    if(player1.turn){
+      playerActions(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
     }
-    if(player1.turn==false)
+    if(!(player1.turn))
     {  
-        console.log(player1.turn)
-        let enemyChoice=Math.floor(Math.random()*enemy1.attacks.length)
-        let baseDmg=enemy1.attacks[enemyChoice].baseDmg
-        let selfHealthInc=enemy1.attacks[enemyChoice].selfHealthInc
-        let selfHealthDec=enemy1.attacks[enemyChoice].selfHealthDec
-        let increaseEnemyAttack=enemy1.attacks[enemyChoice].incAtk
-        let increaseEnemySpeed=enemy1.attacks[enemyChoice].incSpd
-        if(baseDmg!==0){
-            damageToPlayerCalc(enemy1.attack,baseDmg)
-          } 
-          if(selfHealthInc!==0){
-            increaseEnemeyHealth(enemy1.currentHealth,selfHealthInc)
+       enemyActions()
           }
-          if(selfHealthDec!==0){
-            decreaseEnemyHealth(enemy1.currentHealth,selfHealthDec)
-          }
-          if(incAtk!==0){
-            increaseEnemyAttack(enemy1.atk,incAtk)
-          }
-          if(incSpd!==0){
-            increaseEnemySpeed(enemy1.spd,incSpd)
-          }
-       }
     }
 
 function getUserName(){
@@ -412,7 +439,8 @@ function makeAttackList(){
                 let incAtk= attacksArray[attacksListArray.indexOf(this)].incAtk
                 let incSpd= attacksArray[attacksListArray.indexOf(this)].incSpd
                 speedCheck()
-                performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)      
+                performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)   
+                battleInfoBox.addEventListener('click',referenceNextTurn) 
             })
         }
      }
