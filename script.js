@@ -51,8 +51,6 @@ textBox.classList.add('text-box')
 // 2.Declare the battle page elements
 
 //player elements
-const battleScreen=document.createElement('div')
-battleScreen.classList.add('battle-screen')
 const playerName=document.createElement('p')
 playerName.classList.add('player-name')
 playerName.innerHTML='player1'
@@ -65,6 +63,15 @@ playerLevel.classList.add('player-level')
 const playerCharacter=document.createElement('div')
 playerCharacter.classList.add('player-character','player-sprite')
 const playerCharacterinfo=document.createElement('div')
+
+const playerFace=document.createElement('div')
+const playerArms=document.createElement('div')
+const playersRightArm=document.createElement('div')
+const playersLeftArm=document.createElement('div')
+const playerBody=document.createElement('div')
+const playerLegs=document.createElement('div')
+const playersRightLeg=document.createElement('div')
+const playersLeftLeg=document.createElement('div')
 
 //enemy elements
 const enemyName=document.createElement('p')
@@ -79,7 +86,15 @@ const enemyCharacter=document.createElement('div')
 enemyCharacter.classList.add('enemy-character','slime')
 const enemyCharacterinfo=document.createElement('div')
 
+const enemyFace=document.createElement('div')
+const enemyMouth=document.createElement('div')
+const enemyEyes=document.createElement('div')
+const enemyLeftEye=document.createElement('div')
+const enemyRightEye=document.createElement('div')
+
 //page elements
+const battleScreen=document.createElement('div')
+battleScreen.classList.add('battle-screen')
 const attackBox=document.createElement('div')
 const attackList=document.createElement('ul')
 attackList.classList.add('attack-list')
@@ -90,8 +105,20 @@ const attackFourName=document.createElement('li')
 const battleInfoBox=document.createElement('p')
 battleInfoBox.classList.add('battle-info-box')
 const attacksListArray=[attackOneName,attackTwoName,attackThreeName,attackFourName]
-
-let count = 1;
+const leaveBattle=document.createElement('button')
+leaveBattle.classList.add('leave-battle-button')
+leaveBattle.innerHTML='return to title screen'
+leaveBattle.addEventListener('click',function(){ 
+    playerCharacter.removeChild(playerBody)
+    playerCharacter.removeChild(playerLegs)
+    enemyCharacter.removeChild(enemyEyes)
+    enemyCharacter.removeChild(enemyFace)
+    enemyCharacter.removeChild(enemyMouth)
+    battleScreen.removeChild(enemyCharacter)
+    battleScreen.removeChild(playerCharacter)
+    page.removeChild(battleScreen)
+    titleScreenPage()
+})
 // 3. declare the necessary classes
 
 
@@ -172,11 +199,6 @@ function titleScreenPage(){
 // make enemy sprite
 
 function enemyCharacterSprite(){
-const enemyFace=document.createElement('div')
-const enemyMouth=document.createElement('div')
-const enemyEyes=document.createElement('div')
-const enemyLeftEye=document.createElement('div')
-const enemyRightEye=document.createElement('div')
 enemyCharacter.appendChild(enemyFace)
 enemyFace.classList.add('face')
 enemyCharacter.appendChild(enemyMouth)
@@ -192,14 +214,6 @@ enemyRightEye.classList.add('right')
 //make player sprite
 
 function playerSprite(){
-    const playerFace=document.createElement('div')
-    const playerArms=document.createElement('div')
-    const playersRightArm=document.createElement('div')
-    const playersLeftArm=document.createElement('div')
-    const playerBody=document.createElement('div')
-    const playerLegs=document.createElement('div')
-    const playersRightLeg=document.createElement('div')
-    const playersLeftLeg=document.createElement('div')
     playerCharacter.appendChild(playerFace)
     playerFace.classList.add('player-face')
     playerCharacter.appendChild(playerArms)
@@ -242,6 +256,7 @@ function battleScreenPage(){
     battleScreen.appendChild(enemyCharacter)
     playerSprite()
     battleScreen.appendChild(playerCharacter)
+    battleScreen.appendChild(leaveBattle)
 }
 userNamePrompt.addEventListener('click',function(){
    this.remove()
@@ -265,24 +280,26 @@ const attacksArray=[fireball,heal,agility,reckless]
 
 
 function damageToEnemyCalc(attack,damage){
-    let damageDealt=Math.floor(attack/10*damage);
+    let damageDealt=Math.floor((attack/10)*damage);
     enemy1.currentHealth= enemy1.currentHealth-damageDealt
-    if(enemy1.currentHealth<0)
+    if(enemy1.currentHealth<=0)
     {
+        battleInfoBox.removeEventListener('click',referenceNextTurn)
         enemy1.currentHealth = 0
         createEnemy()
         attackList.classList.add('hide-attack-list')
-        battleInfoBox.innerHTML=`${player1.name} has defeated the ${enemy1.name}`
+        battleInfoBox.innerHTML=`${player1.name} has defeated the ${enemy1.name}.`
         return damageDealt
     }
     createEnemy()
-    battleInfoBox.innerHTML=`${player1.name} did ${damageDealt} damage to the ${enemy1.name}`
+    battleInfoBox.innerHTML+=`${player1.name} did ${damageDealt} damage to the ${enemy1.name}.`
 }    
 function damageToPlayerCalc(attack,damage){
-    let damageDealt=Math.floor(attack/10*damage)
+    let damageDealt=Math.floor((attack/10)*damage)
     player1.currentHealth= player1.currentHealth-damageDealt
-    if(player1.currentHealth<0)
+    if(player1.currentHealth<=0)
     {
+        battleInfoBox.removeEventListener('click',referenceNextTurn)
         player1.currentHealth = 0
         createPlayer()
         attackList.classList.add('hide-attack-list')
@@ -290,14 +307,14 @@ function damageToPlayerCalc(attack,damage){
         return damageDealt
     }
     createPlayer()
-    battleInfoBox.innerHTML=`${enemy1.name} did ${damageDealt} damage to ${player1.name}`
+    battleInfoBox.innerHTML+=`${enemy1.name} did ${damageDealt} damage to ${player1.name}.`
 }   
 function increasePlayerHealth(selfHealthInc){
     player1.currentHealth=player1.currentHealth+selfHealthInc
     if(player1.currentHealth>player1.maxHealth)
     player1.currentHealth=player1.maxHealth
     createPlayer()
-    battleInfoBox.innerHTML=`${player1.name} healed themselves by ${selfHealthInc} points`
+    battleInfoBox.innerHTML+=`${player1.name} healed themselves by ${selfHealthInc} points.`
 }
 function decreasePlayerHealth(selfHealthDec){
     player1.currentHealth=player1.currentHealth-selfHealthDec
@@ -306,49 +323,49 @@ function decreasePlayerHealth(selfHealthDec){
         player1.currentHealth = 0
         createPlayer()
         attackList.classList.add('hide-attack-list')
-        battleInfoBox.innerHTML=`${player1.name} has killed themselves`
+        battleInfoBox.innerHTML=`${player1.name} has killed themselves.`
         return player1.currentHealth
     }
     createPlayer()
-    battleInfoBox.innerHTML=`${player1.name} hurt themselves, took ${selfHealthDec} damage`
+    battleInfoBox.innerHTML+=`${player1.name} hurt themselves, took ${selfHealthDec} damage.`
 }
 function  increasePlayerAttack(incAtk){
     player1.attack=player1.attack+incAtk
     createPlayer()
-    battleInfoBox.innerHTML=`${player1.name}  raised their by attack ${incAtk}`  
+    battleInfoBox.innerHTML+=`${player1.name}  raised their by attack ${incAtk}.`  
 }
 function  increasePlayerSpeed(incSpd){
     player1.speed=player1.speed+incSpd
     createPlayer()
-    battleInfoBox.innerHTML=`${player1.name}'s speed increased by ${incSpd}`  
+    battleInfoBox.innerHTML+=`${player1.name}'s speed increased by ${incSpd}.`  
 }
 function increaseEnemeyHealth(healthInc){
     enemy1.currentHealth=enemy1.currentHealth+healthInc
     if(enemy1.currentHealth>enemy1.maxHealth)
     enemy1.currentHealth=enemy1.maxHealth
     createEnemy()
-    battleInfoBox.innerHTML=`${enemy1.name}'s health recovered by ${healthInc}`
+    battleInfoBox.innerHTML+=`${enemy1.name}'s health recovered by ${healthInc}.`
 }
 function decreaseEnemyHealth(selfHealthDec){
     enemy1.currentHealth=enemy1.currentHealth-selfHealthDec
     createPlayer()
-    battleInfoBox.innerHTML=`${enemy1.name} hurt themselves, took ${selfHealthDec} damage`
+    battleInfoBox.innerHTML+=`${enemy1.name} hurt themselves, took ${selfHealthDec} damage.`
 }
 function  increaseEnemyAttack(incAtk){
-    enemy1.attack=enemy1.atk+incAtk
+    enemy1.attack+=enemy1.atk+incAtk
     createPlayer()
-    battleInfoBox.innerHTML=`${enemy1.name}  raised their attack by ${incAtk}`  
+    battleInfoBox.innerHTML+=`${enemy1.name}  raised their attack by ${incAtk}.`  
 }
 function  increaseEnemySpeed(incSpd){
     enemy1.speed=enemy1.spd+incSpd
     createPlayer()
-    battleInfoBox.innerHTML=`${enemy1.name}'s speed increased by ${incSpd}`
+    battleInfoBox.innerHTML+=`${enemy1.name}'s speed increased by ${incSpd}.`
 }
 function nextTurn(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
     player1.turn= !(player1.turn)
+    battleInfoBox.innerHTML=''
     performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
     attackList.classList.remove('hide-attack-list')
-    console.log('next turn')
     battleInfoBox.removeEventListener('click',referenceNextTurn)
 }
 const referenceNextTurn=function(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
@@ -363,6 +380,8 @@ function speedCheck(){
        { 
         player1.turn=false
     }
+    battleInfoBox.innerHTML=''
+    battleInfoBox.addEventListener('click',referenceNextTurn)
     attackList.classList.add('hide-attack-list')
 }
 
@@ -415,7 +434,7 @@ function performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
     if(!(player1.turn))
     {  
        enemyActions()
-          }
+    }
     }
 
 function getUserName(){
@@ -439,8 +458,7 @@ function makeAttackList(){
                 let incAtk= attacksArray[attacksListArray.indexOf(this)].incAtk
                 let incSpd= attacksArray[attacksListArray.indexOf(this)].incSpd
                 speedCheck()
-                performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)   
-                battleInfoBox.addEventListener('click',referenceNextTurn) 
+                performAttack(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
             })
         }
      }

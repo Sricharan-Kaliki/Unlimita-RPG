@@ -66,24 +66,30 @@ button{
     background: url('https://64.media.tumblr.com/00ec803404f6e9d6583f92d8870b5fb8/tumblr_p7k8f3fMWS1wvbydeo1_1280.png');
     background-size: cover;
     text-align: center;
-    }
+}
+.leave-battle-button{
 
+background-color: red;
+color: white;
+grid-column: 17/span 2;
+grid-row: 18/span 2
+} 
 .hide-battle-screen{
      display: none;
 }
     
     .enemy-info{
-        grid-column: 15/span 3;
-        grid-row:10/span 2;
-        border: 1px solid black;
-        background-color:rgb(230, 212, 156);
-        border-radius: 5px;
+    grid-column: 15/span 3;
+    grid-row:11/span 2;
+    border: 1px solid black;
+    background-color:rgb(230, 212, 156);
+    border-radius: 5px;
 
     }
     .enemy-name{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         grid-column:15/span 2;
-        grid-row:8/ span 2;
+        grid-row:9/ span 2;
         background-color: #089de7;
         color: #FFFFFF;
         border: 1px solid black;
@@ -92,7 +98,7 @@ button{
     }
     .enemy-level{
         grid-column: 17/ span 1;
-        grid-row:10/ span 1;
+        grid-row:11/ span 1;
     }
     .enemy-health-bar{
         grid-column:1/4;
@@ -100,16 +106,16 @@ button{
     }
     .enemy-health-ratio{
         grid-column: 15/span 1;
-        grid-row:10/span 1;
+        grid-row:11/span 1;
     }
     .enemy-character{
     
-        grid-column: 13/span 4;
-        grid-row:9/ span 4;
+        grid-column: 13/span 3;
+        grid-row: 11/ span 3;
     }
     .player-info{
         
-        grid-column:6/span 3  ;
+        grid-column:5/span 3  ;
         grid-row: 13/span 2 ;
         background-color: rgb(230, 212, 156);
         border: 1px solid black;
@@ -118,7 +124,7 @@ button{
 
     .player-name{
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        grid-column:7/span 2;
+        grid-column:5/span 2;
         grid-row:11/span 2;
         background-color: #089de7;
         color: white;
@@ -127,7 +133,7 @@ button{
         height: 30px; 
     }
     .player-level{
-        grid-column: 8/span 1;
+        grid-column: 7/span 1;
         grid-row:13/span 1;
         font-family: "Goudy Text MT", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     }
@@ -136,14 +142,14 @@ button{
         grid-row:6;
     }
     .player-health-ratio{
-        grid-column: 6/span 1;
+        grid-column: 5/span 1;
         grid-row:13/span 1;
     }
     .attack-list{
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        grid-column: 6/span 3;
+        grid-column: 5/span 3;
         grid-row:15/span 4;
         background-color: #FFA500;
         border:1px solid black;
@@ -154,8 +160,8 @@ button{
     }
     
     .player-character{
-        grid-column: 10/span 4;
-        grid-row:13/span 4;
+        grid-column: 9/span 3;
+        grid-row:13/span 3;
 
     }
     .battle-info-box{
