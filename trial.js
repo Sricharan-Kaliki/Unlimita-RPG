@@ -199,7 +199,7 @@ class attack{
 
 // make a new player from the class
 
-const player1=new Player(1,20,20,10,11)
+const player1=new Player(1,20,20,10,18)
 player1.name='player1'
 let currentAttack=player1.attack
 let currentMaxHealth=player1.maxHealth

@@ -199,7 +199,7 @@ class attack{
 
 // make a new player from the class
 
-const player1=new Player(1,20,20,10,11)
+const player1=new Player(1,20,20,10,20)
 player1.name='player1'
 let currentAttack=player1.attack
 let currentMaxHealth=player1.maxHealth
@@ -311,6 +311,7 @@ levelUpScreen.appendChild(healthDownButton)
 levelUpScreen.appendChild(speedUpButton)
 levelUpScreen.appendChild(speedDownButton)
 levelUpScreen.appendChild(distributePoints)
+levelUpScreen.classList.remove('hide-level-up-screen')
 }
 
 
@@ -326,8 +327,11 @@ input.addEventListener('keydown',function(event){
 distributePoints.addEventListener('click',function(){
     if(totalPointsNumber==0){
     player1.attack+=attackPointsNumber
+    currentAttack=player1.attack
     player1.maxHealth+=healthPointsNumber
+    player1.currentHealth=player1.maxHealth
     player1.speed+=speedPointsNumber
+    currentSpeed=player1.speed
     player1.level+=1
     enemy1.level+=1
     enemy1.attack=Math.floor((enemy1.attack)*1.1)
@@ -398,7 +402,7 @@ function updateLevelUpScreen(){
     speedPointsNum.innerHTML=`${speedPointsNumber}`
 }
 
-const fireball= new attack('fireball',30,0,0,0,0)
+const fireball= new attack('fireball',3,0,0,0,0)
 const heal=new attack('heal',0,5,0,0,0)
 const agility=new attack('agility',0,0,0,0,5)
 const reckless=new attack('reckless',0,0,3,8,5)
@@ -506,6 +510,7 @@ function nextTurn(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
     battleInfoBox.removeEventListener('click',referenceNextTurn)
 }
 const referenceNextTurn=function(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd){
+    console.log(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
          nextTurn(baseDmg,selfHealthInc,selfHealthDec,incAtk,incSpd)
 }
 function speedCheck(){
