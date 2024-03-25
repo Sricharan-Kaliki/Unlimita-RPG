@@ -9,6 +9,14 @@ body{
     align-items: center;
     
 }
+.high-score-list{
+   background-color: #5A44D3;
+   color: white;
+   border: 1px solid white;
+   height: 50px;
+   width: 150px;
+   font-size: 18px;
+}
 .game-title{
     font-family:"Wallpoet",sans-serif ;
     font-size: 100px;
@@ -17,7 +25,7 @@ body{
     background-color: #5A44D3;
 }
 
-button{
+.start-button{
     height: 50px;
     width: 150px; 
     background-color: #5A44D3;
@@ -72,7 +80,8 @@ button{
 background-color: red;
 color: white;
 grid-column: 17/span 2;
-grid-row: 18/span 2
+grid-row: 19/span 1;
+transform: translate(30px,50px);
 } 
 .hide-battle-screen{
      display: none;
@@ -298,4 +307,122 @@ grid-row: 18/span 2
 }
 .hide-attack-list{
     display: none;
+}
+.level-up-screen{
+    grid-column: 13/span 4;
+    grid-row: 8 /span 8; 
+    display:grid;
+    background-color: gold;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(8,1fr);
+}
+.hide-level-up-screen{
+    display: none;
+}
+.total-points{
+    grid-column: 1/span 3;
+    grid-row:1/span 1;
+}
+.total-points-number{
+    grid-column: 4/span 1;
+    grid-row: 1/span 1 
+}
+.attack-points{
+    grid-column: 1/span 3;
+    grid-row: 2/span 2;
+}
+.attack-points-number{
+    grid-column: 4/span 1;
+    grid-row:2/ span 1;
+}
+.health-points{
+    grid-column: 1/span 3;
+    grid-row: 4/span 2;
+}
+.health-points-number{
+    grid-column: 4/span 1;
+    grid-row: 4/span 1;
+}
+.speed-points{
+    grid-column: 1/span 3;
+    grid-row:6/span 2;
+}
+.speed-points-number{
+    grid-column: 4/span 1;
+    grid-row: 6/span 1;
+}
+.distribute-points-button{
+   grid-column: 1/span 3;
+   grid-row:8;
+
+}
+.attack-up-button{
+  grid-column: 6/span 1;  
+  grid-row:2/span 1;
+  width: 0;
+  height: 0;
+  background-color: gold;
+  border-color: transparent transparent gray transparent;
+  border-style: solid;
+  border-width: 0px 15px 15px 15px;
+  padding:0px;
+}
+.attack-down-button{
+    grid-column: 6/span 1;    
+    grid-row:3/span 1;
+    width: 0;
+    height: 0;
+    background-color: gold;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid gray;
+    padding:0px;
+}
+
+.health-up-button{
+    grid-column: 6/span 1;   
+    grid-row:4/span 1;
+    width: 0;
+    height: 0;
+    background-color: gold;
+    border-color: transparent transparent gray transparent;
+    border-style: solid;
+    border-width: 0px 15px 15px 15px;
+    padding:0px;
+
+}
+.health-down-button{
+    grid-column: 6/span 1;   
+    grid-row:5/span 1;
+    width: 0;
+    height: 0;
+    background-color: gold;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid gray;
+    padding:0px;
+}
+.speed-up-button{
+    grid-column: 6/span 1;   
+    grid-row:6/span 1;
+    width: 0;
+    height: 0;
+    background-color: gold;
+    border-color: transparent transparent gray transparent;
+    border-style: solid;
+    border-width: 0px 15px 15px 15px;
+    padding:0px;
+
+}
+
+.speed-down-button{
+    grid-column: 6/span 1;    
+    grid-row:7/span 1;
+    width: 0;
+    height: 0;
+    background-color: gold;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid gray;
+    padding:0px;
 }
